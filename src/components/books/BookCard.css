@@ -1,0 +1,133 @@
+.book-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  flex: 1 1 100%; /* Each card takes full width on small screens */
+  max-width: 100%;
+}
+
+.book-card .read-icon {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  top: 0;
+  right: 0;
+  color: red;
+  font-size: 2.5rem;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  background-color: rgb(255, 255, 255);
+}
+
+.book-img {
+  height: 500;
+}
+
+.book-img img {
+  z-index: 100;
+  width: 100%;
+  object-fit: cover;
+  max-height: 300px;
+}
+
+.book-details {
+  padding: 15px;
+}
+
+.book-details {
+  height: 250px;
+}
+
+.book-details span {
+  font-size: 18px;
+  font-weight: 700;
+  color: blue;
+}
+
+.book-details span:hover {
+  cursor: pointer;
+}
+
+.book-details .book-header {
+  display: flex;
+  align-items: center;
+}
+
+.book-details h3 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.book-details p {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.book-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background: #f8f8f8;
+}
+
+.book-footer button {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  width: 49%;
+  height: 48px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s ease-in-out;
+  font-weight: 500;
+  background-color: white;
+  color: black;
+}
+
+button:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.edit-btn {
+  border: 1px solid #3498db;
+}
+
+.edit-btn:hover {
+  background: #3498db;
+}
+
+.delete-btn {
+  border: 1px solid red;
+}
+
+.delete-btn:hover {
+  background-color: red;
+}
+
+/* Three cards per row on medium screens */
+@media (min-width: 768px) {
+  .book-card {
+    flex: 1 1 calc(33.3% - 20px);
+    max-width: calc(33.3% - 20px);
+    max-height: 350px;
+  }
+}
+
+/* Five cards per row on large screens */
+@media (min-width: 1400px) {
+  .book-card {
+    flex: 1 1 calc(20% - 20px);
+    max-width: calc(20% - 20px);
+    max-height: 350px;
+  }
+}

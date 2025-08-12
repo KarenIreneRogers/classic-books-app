@@ -10,6 +10,6 @@
   padding: 0 20px;
   align-items: center;
   color: white;
-  border-color: black;
-  border-width: 6px;
+  border: 2px solid #000;
+
 }
