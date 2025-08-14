@@ -8,19 +8,25 @@ import { IoBookOutline } from "react-icons/io5";
 interface BookCardProps {
   book: Book;
   onDeleteBook: (bookId: string) => void;
+  onToggleRead: (bookId: string) => void;
 }
 
 const BookCard: React.FC<BookCardProps> = ({
   book: {id,title, authorFirst, authorLast, description, 
     read, pubDate },
   onDeleteBook,
+  onToggleRead,
 }) => {
 
   
   return (
     <div className = "book-card">
       <div className = "read-icon">
-        {read ?  <IoBook /> : <IoBookOutline />}
+        {read ? ( 
+          <IoBook onClick={() => onToggleRead(id)}/> 
+        ): (
+          <IoBookOutline onClick={() => onToggleRead(id)} />
+        )}
       </div>
       <br></br>
       <div className="book-details">

@@ -6,12 +6,18 @@ import BookCard from "./BookCard"
 type BookListProps = {
   books: Book[];
   onDeleteBook: (bookId: string) => void;
+  onToggleRead: (bookId: string) => void;
 }
- const BookList: FC<BookListProps> = ({ books, onDeleteBook}) => {
+ const BookList: FC<BookListProps> = ({ books, onDeleteBook, onToggleRead }) => {
   return (
     <div id="books" className="book-list">
       {books?.map((book) => (
-        <BookCard key = {book.id} book={book} onDeleteBook={onDeleteBook} />
+        <BookCard 
+          key = {book.id} 
+          book={book} 
+          onDeleteBook={onDeleteBook} 
+          onToggleRead={onToggleRead}
+          />
       ))}
 
     </div>

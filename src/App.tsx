@@ -49,13 +49,34 @@ const deleteBook = (bookId: string) => {
   });
 };
   
-  
-  return (
+// The toggleRead function updates the read part of the state
+// and changes between the open outline book and the red filled in 
+// book icons.  Access it by clicking on the icons.
+const toggleRead = (bookId: string) => {
+  setBooksState((prevBooks) => {
+    return prevBooks.map((book) => {
+      if(book.id === bookId) {
+        return {
+          ...book,   // Spread all existing book properties
+          read: !book.read,  // toggle the read property
+          updatedAt: new Date().toISOString(),  // Update the date
+        }
+      }
+      return book;
+    });
+  });
+};
+
+return (
 <>
   <div className="d-flex flex-row vh-100 " id="app-container">
     <Sidebar onAddBook={addBook}/>
     <div className="d-flex flex-grow-1 flex-column ">
-      <BookList books={booksState} onDeleteBook={deleteBook}/>
+      <BookList 
+        books={booksState} 
+        onDeleteBook={deleteBook}
+        onToggleRead={toggleRead}
+      />
     </div>
   </div>
 </>
