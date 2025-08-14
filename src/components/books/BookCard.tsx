@@ -10,8 +10,10 @@ interface BookCardProps {
 }
 
 const BookCard: React.FC<BookCardProps> = ({
-  book: {title, author, description, read, pubDate }
+  book: {title, authorFirst, authorLast, description, read, pubDate }
 }) => {
+
+  
   return (
     <div className = "book-card">
       <div className = "read-icon">
@@ -20,15 +22,18 @@ const BookCard: React.FC<BookCardProps> = ({
       <br></br>
       <div className="book-details">
         <h3>
-          "{title}," by {author} ({pubDate})
+          "{title},"
         </h3>
+        <h3>by {authorFirst} {authorLast}</h3>
+        <h3>({pubDate})</h3>
         <p>
           {description?.slice(0, 150)}...
           <span className="view-more">View More</span>
         </p>
       </div>
       <div className="book-footer">
-        <button className="edit-btn">Edit</button>
+        <button className="edit-btn">
+          {read ? "Read Status -" : "Read Status +"}</button>
         <button className="delete-btn">Delete</button>
       </div>
     </div>

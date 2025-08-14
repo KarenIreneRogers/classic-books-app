@@ -5,11 +5,12 @@ export const books: Book[] = [
 {
   id: "1",
   title: "Pride and Prejudice",
-  author: "Austen, Jane",
+  authorFirst: "Jane",
+  authorLast: "Austen",
   publisher: " ",
   pubCity: " ",
   pubDate: "1813",
-  description: "It is a truth universally acknowledged that when most people think of Jane Austen they think of this charming and humorous story of love, difficulty families and the tricky task of finding a handsome husband with a good fortune.",
+  description: "It is a truth universally acknowledged that when most people think of Jane Austen they think of this charming and humorous story of love, difficulty families and the tricky task of finding a handsome husband with a good fortune.", // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: true ,
   createdAt: "2025-08-08T00:00:00.000Z"  ,
@@ -18,11 +19,12 @@ export const books: Book[] = [
 {
   id: "2",
   title: "To Kill a Mockingbird",
-  author: "Lee, Harper",
+  authorFirst: "Harper",
+  authorLast: "Lee",
   publisher: " ",
   pubCity: " ",
   pubDate: "1960",
-  description: "A novel before its time, Harper Lee's Pulitzer-prize winner addresses issues of race, inequality and segregation with both levity and compassion.  Told through the eyes of loveable rogues Scout and Jem, it also created one of literature's most beloved heroes - Atticus Finch, a man determined to right the racial wrongs of the Deep South.",
+  description: "A novel before its time, Harper Lee's Pulitzer-prize winner addresses issues of race, inequality and segregation with both levity and compassion.  Told through the eyes of loveable rogues Scout and Jem, it also created one of literature's most beloved heroes - Atticus Finch, a man determined to right the racial wrongs of the Deep South.",  // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: true ,
   createdAt: "2025-08-08T00:00:00.000Z"  ,
@@ -31,11 +33,12 @@ export const books: Book[] = [
 {
   id: "3",
   title: "The Great Gatsby",
-  author: "Fitzgerald, F. Scott",
+  authorFirst: "F. Scott",
+  authorLast: "Fitzgerald",
   publisher: " ",
   pubCity: " ",
   pubDate: "1925",
-  description: "Jay Gatsby, the enigmatic millionaire who throws decadent parties but doesn't attend them, is one of the great characters of American literature.",
+  description: "Jay Gatsby, the enigmatic millionaire who throws decadent parties but doesn't attend them, is one of the great characters of American literature.",  // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: false ,
   createdAt: "2025-08-08T00:00:00.000Z"  ,
@@ -44,11 +47,12 @@ export const books: Book[] = [
 {
   id: "4",
   title: "Brave New World",
-  author: "Huxley, Aldous",
+  authorFirst: "Aldous",
+  authorLast: "Huxley",
   publisher: " ",
   pubCity: " ",
   pubDate: "1932",
-  description: "One of the greatest and most prescient dystopian novels ever written, this should be on everyone's must-read list.",
+  description: "One of the greatest and most prescient dystopian novels ever written, this should be on everyone's must-read list.",  // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: false ,
   createdAt: "2025-08-08T00:00:00.000Z"  ,
@@ -57,11 +61,12 @@ export const books: Book[] = [
 {
   id: "5",
   title: "The Call of the Wild",
-  author: "London, Jack",
+  authorFirst: "Jack",
+  authorLast: "London",
   publisher: " ",
   pubCity: " ",
   pubDate: "1903",
-  description: "Jack London was a gold prospector in the Canadian wilderness and used his experiences to write about a dog named Buck who becomes a leader of the wild.  With themes exploring nature and the struggle for existence in the frozen Alaskan landscape.",
+  description: "Jack London was a gold prospector in the Canadian wilderness and used his experiences to write about a dog named Buck who becomes a leader of the wild.  With themes exploring nature and the struggle for existence in the frozen Alaskan landscape.",  // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: true ,
   createdAt: "2025-08-08T00:00:00.000Z"  ,
@@ -70,11 +75,12 @@ export const books: Book[] = [
 {
   id: "6",
   title: "Jane Eyre",
-  author: "Bronte, Charlotte ",
+  authorFirst: "Charlotte ",
+  authorLast: "Bronte",
   publisher: " ",
   pubCity: " ",
   pubDate: "1847 ",
-  description: "One of literature’s steeliest heroines, in her short life Jane Eyre has overcome a traumatic childhood only to be challenged by secrets, strange noises and mysterious fires in her new home of Thornfield Hall. All while falling in love with her employer, Mr Rochester. A Gothic masterpiece that was groundbreaking in its intimate use of the first-person narrative.",
+  description: "One of literature’s steeliest heroines, in her short life Jane Eyre has overcome a traumatic childhood only to be challenged by secrets, strange noises and mysterious fires in her new home of Thornfield Hall. All while falling in love with her employer, Mr Rochester. A Gothic masterpiece that was groundbreaking in its intimate use of the first-person narrative.", // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: false ,
   createdAt: "2025-08-08T00:00:00.000Z"  ,
@@ -83,24 +89,26 @@ export const books: Book[] = [
 {
   id: "7",
   title: "Crime and Punishment",
-  author: "Dostoevsky, Fyodor",
+  authorFirst: "Fyodor",
+  authorLast: "Dostoevsky",
   publisher: " ",
   pubCity: " ",
   pubDate: "1846 ",
-  description: "This novel is a masterful and completely captivating depiction of a man experiencing a profound mental unraveling. No amount of ethical bargaining on Raskolnikov’s part can free him from the parasitic guilt nested in his soul. A brilliant read if you loved Breaking Bad.",
+  description: "This novel is a masterful and completely captivating depiction of a man experiencing a profound mental unraveling. No amount of ethical bargaining on Raskolnikov’s part can free him from the parasitic guilt nested in his soul. A brilliant read if you loved Breaking Bad.", // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: false ,
   createdAt: "2025-08-08T00:00:00.000Z"  ,
   updatedAt: "2025-08-08T00:00:00.000Z"  ,
 },
-{
+/* {
   id: "8",
   title: "Moby Dick",
-  author: "Melville, Herman",
+  authorFirst: "Herman",
+  authorLast: "Melville",
   publisher: " ",
   pubCity: " ",
   pubDate: "1851",
-  description: " Every American writer since 1851 has been chasing the same whale: to somehow write a novel as epic and influential as Melville’s. ",
+  description: " Every American writer since 1851 has been chasing the same whale: to somehow write a novel as epic and influential as Melville’s. ",  // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: true,
   createdAt: "2025-08-08T00:00:00.000Z"  ,
@@ -109,11 +117,12 @@ export const books: Book[] = [
 {
   id: "9",
   title: "Frankenstein",
-  author: "Shelley, Mary",
+  authorFirst: "Mary",
+  authorLast: "Shelley",
   publisher: " ",
   pubCity: " ",
   pubDate: "1823 ",
-  description: "Written when Mary Shelley was just 18 years old, but don’t let that depress you. Frankenstein is a Gothic masterpiece with entertaining set pieces aplenty. ",
+  description: "Written when Mary Shelley was just 18 years old, but don’t let that depress you. Frankenstein is a Gothic masterpiece with entertaining set pieces aplenty. ",  // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: false ,
   createdAt: "2025-08-08T00:00:00.000Z"  ,
@@ -122,26 +131,28 @@ export const books: Book[] = [
 {
   id: "10",
   title: "The Iliad",
-  author: "Homer ",
+  authorFirst: "",
+  authorLast: "Homer",
   publisher: " ",
   pubCity: " ",
   pubDate: "8th Century BC ",
-  description: "It is one of the greatest and most influential epic poems ever written, and (alongside The Odyssey) the oldest surviving work of Western literature. Although the story centres on the critical events of the last year of the Trojan war, Homer also explores themes of humanity, compassion and survival. ",
+  description: "It is one of the greatest and most influential epic poems ever written, and (alongside The Odyssey) the oldest surviving work of Western literature. Although the story centres on the critical events of the last year of the Trojan war, Homer also explores themes of humanity, compassion and survival. ",  // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: false ,
   createdAt: "2025-08-08T00:00:00.000Z"  ,
   updatedAt: "2025-08-08T00:00:00.000Z"  ,
-},
+} */
 ];
 
 /* {
   id: " ",
   title: " ",
-  author: " ",
+  authorFirst: " ",
+  authorLast: " ",
   publisher: " ",
   pubCity: " ",
   pubDate: " ",
-  description: " ",
+  description: " ", // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
   category: " ",
   read: false ,
   createdAt: "2025-08-08T00:00:00.000Z"  ,

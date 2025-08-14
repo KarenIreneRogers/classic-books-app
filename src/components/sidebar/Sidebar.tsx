@@ -1,16 +1,41 @@
-import React from 'react'
+import { type FC} from 'react'
 import './Sidebar.css'
-import AddBook from './AddBook'
+//import AddBook from './AddBook'
 import ArrangeBy from './ArrangeBy'
 
-
-export default function Sidebar() {
+interface SidebarProps {
+  onAddBook: () => void;
+}
+// Define the Sidebar component.
+// This component creates a navigation bar that handles the AddBook
+// functionality through the onAddBook prop.
+const Sidebar: FC<SidebarProps> = ({onAddBook}) => {
   return (
-    <div className = "sidebar">
-      <h3>This is the Sidebar</h3>
-      <AddBook/>
-      <ArrangeBy/>
+    <nav className="sidebar" >
+      <div id="sidebar" 
+        className = "border-end  p-3 d-flex flex-column"
+      >
+        
+          <div  id="title">
+            Classic Books
+          </div>
+        
 
-    </div>
+        <li>
+          <a href="/#books"
+            onClick={onAddBook}
+          >
+            Add Book
+          </a>
+        </li>
+   
+        <br/>
+        <ArrangeBy/>
+
+      </div>
+    </nav>
   )
 }
+
+// Export the component so that it can be imported into other files
+export default Sidebar;
