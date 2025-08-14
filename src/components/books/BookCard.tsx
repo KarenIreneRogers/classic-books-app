@@ -7,10 +7,13 @@ import { IoBookOutline } from "react-icons/io5";
 
 interface BookCardProps {
   book: Book;
+  onDeleteBook: (bookId: string) => void;
 }
 
 const BookCard: React.FC<BookCardProps> = ({
-  book: {title, authorFirst, authorLast, description, read, pubDate }
+  book: {id,title, authorFirst, authorLast, description, 
+    read, pubDate },
+  onDeleteBook,
 }) => {
 
   
@@ -32,9 +35,13 @@ const BookCard: React.FC<BookCardProps> = ({
         </p>
       </div>
       <div className="book-footer">
-        <button className="edit-btn">
-          {read ? "Read Status -" : "Read Status +"}</button>
-        <button className="delete-btn">Delete</button>
+        <button className="edit-btn">Edit</button>
+        <button 
+          className="delete-btn"
+          onClick={() => onDeleteBook(id)}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );

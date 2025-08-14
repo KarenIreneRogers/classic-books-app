@@ -17,7 +17,6 @@ function App() {
   // The addBook function is a handler function to add a new book
   // to the books state.  It will be passed down to the Sidebar
   // component where the actual adding will be called for with a button click.
-
   const addBook = () => {
     // For now, create a new book here to be added each time.
     // Eventually, a form will be used to allow the user to input
@@ -40,7 +39,15 @@ function App() {
     // Use setBooksState to update the books array
     setBooksState((prevBooks) => [newBook, ...prevBooks]);
   }
-
+// The delete book function will actually happen in the BookCard component, so define it hear and pass it down.
+const deleteBook = (bookId: string) => {
+  // Use the setBooksState function to update the books array
+  setBooksState((prevBooks) => {
+    // filter out the book which matches the id.  
+    // This makes a new array with all of the books except the one to be deleted.
+    return prevBooks.filter((book) => book.id !== bookId);
+  });
+};
   
   
   return (
@@ -48,7 +55,7 @@ function App() {
   <div className="d-flex flex-row vh-100 " id="app-container">
     <Sidebar onAddBook={addBook}/>
     <div className="d-flex flex-grow-1 flex-column ">
-      <BookList books={booksState}/>
+      <BookList books={booksState} onDeleteBook={deleteBook}/>
     </div>
   </div>
 </>
