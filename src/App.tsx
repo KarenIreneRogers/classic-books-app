@@ -35,10 +35,79 @@ function App() {
       read: false ,
       createdAt: "2025-08-08T00:00:00.000Z"  ,
       updatedAt: "2025-08-08T00:00:00.000Z"  ,
+      updatedOrderAt: "2025-01-01T00:00:00:000Z"
     }
     // Use setBooksState to update the books array
     setBooksState((prevBooks) => [newBook, ...prevBooks]);
-  }
+}
+
+// The sort by title function sorts the array of objects called books based on the title field into alphabetical order.  The state is changed at the end of this function, but it does not re-render immediately.  Don't know why!!!
+const sortByTitle= () => {
+  setBooksState((prevBooks) => {
+    const newOrder= prevBooks.sort(function (a,b) {
+      if(a.title < b.title) {
+      return -1;
+      }
+      if (a.title > b.title) {
+      return 1;
+      }
+      return 0;
+    })
+    const newUpdatedOrder =newOrder.map((book) => {
+      return {
+        ...book,   // Spread all existing book properties
+        updatedOrderAt: new Date().toISOString()  // Update the date  
+      }
+      return book;
+    })
+    return newUpdatedOrder;   
+  });
+};
+// The sort by author function sorts the array of objects called books based on the authorLast field into alphabetical order.
+const sortByAuthor = () => {
+  setBooksState((prevBooks) => {
+    const newOrder = prevBooks.sort(function(a,b) {
+      if(a.authorLast < b.authorLast) {
+        return -1;
+      }
+      if (a.authorLast > b.authorLast) {
+        return 1;
+      }
+      return 0;
+    })
+    const newUpdatedOrder =newOrder.map((book) => {
+      return {
+        ...book,   // Spread all existing book properties
+        updatedOrderAt: new Date().toISOString()  // Update the date  
+      }
+      return book;
+    })
+    return newUpdatedOrder;
+  });
+};
+
+const sortByReadStatus = () => {
+  setBooksState((prevBooks) => {
+    const newOrder = prevBooks.sort(function(a,b) {
+      if(a.read < b.read) {
+        return -1;
+      }
+      if(a.read > b.read) {
+        return 1;
+      }
+      return 0;
+    }) 
+    const newUpdatedOrder =newOrder.map((book) => {
+      return {
+        ...book,   // Spread all existing book properties
+        updatedOrderAt: new Date().toISOString()  // Update the date  
+      }
+      return book;
+    })
+    return newUpdatedOrder;
+  });
+};
+
 // The delete book function will actually happen in the BookCard component, so define it hear and pass it down.
 const deleteBook = (bookId: string) => {
   // Use the setBooksState function to update the books array
@@ -70,7 +139,12 @@ const toggleRead = (bookId: string) => {
 return (
 <>
   <div className="d-flex flex-row vh-100 " id="app-container">
-    <Sidebar onAddBook={addBook}/>
+    <Sidebar 
+      onAddBook={addBook} 
+      onSortByTitle={sortByTitle}
+      onSortByAuthor={sortByAuthor}
+      onSortByReadStatus={sortByReadStatus}
+    />
     <div className="d-flex flex-grow-1 flex-column ">
       <BookList 
         books={booksState} 

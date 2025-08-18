@@ -11,6 +11,7 @@ export type Book = {
   read: boolean;
   createdAt: string;
   updatedAt: string;
+  updatedOrderAt: string;
 };
 
 export type NewBook = Omit<Book, 'id'>;
