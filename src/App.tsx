@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState} from 'react'
 
 import './App.css';
 import Sidebar from './components/sidebar/Sidebar';
@@ -53,21 +53,21 @@ const sortByTitle= () => {
       }
       return 0;
     })
-    const newUpdatedOrder =newOrder.map((book) => {
-      return {
-        ...book,   // Spread all existing book properties
-        updatedOrderAt: new Date().toISOString()  // Update the date  
-      }
-      return book;
-    })
-    return newUpdatedOrder;   
-  });
-};
+    // Changing the UpdatedOrderAt field changes the state so rendering occurs.
+    const newUpdatedOrder = newOrder.map((book) =>{
+    return {
+      ...book,
+      UpdatedOrderAt: new Date().toISOString()
+    } 
+  })
+   return newUpdatedOrder
+})
+}
 // The sort by author function sorts the array of objects called books based on the authorLast field into alphabetical order.
 const sortByAuthor = () => {
   setBooksState((prevBooks) => {
     const newOrder = prevBooks.sort(function(a,b) {
-      if(a.authorLast < b.authorLast) {
+      if(a["authorLast"] < b["authorLast"]) {
         return -1;
       }
       if (a.authorLast > b.authorLast) {
@@ -80,7 +80,6 @@ const sortByAuthor = () => {
         ...book,   // Spread all existing book properties
         updatedOrderAt: new Date().toISOString()  // Update the date  
       }
-      return book;
     })
     return newUpdatedOrder;
   });
@@ -90,10 +89,10 @@ const sortByReadStatus = () => {
   setBooksState((prevBooks) => {
     const newOrder = prevBooks.sort(function(a,b) {
       if(a.read < b.read) {
-        return -1;
+        return 1;   //Use -1 here to put unread books first
       }
       if(a.read > b.read) {
-        return 1;
+        return -1;    // Use 1 here to put unread books first
       }
       return 0;
     }) 
@@ -102,7 +101,6 @@ const sortByReadStatus = () => {
         ...book,   // Spread all existing book properties
         updatedOrderAt: new Date().toISOString()  // Update the date  
       }
-      return book;
     })
     return newUpdatedOrder;
   });

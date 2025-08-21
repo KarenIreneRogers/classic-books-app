@@ -45,6 +45,7 @@ const Sidebar: FC<SidebarProps> =
           <Button 
             id="arrangeByTitle"
             variant="primary"
+            name="title"
             onClick={onSortByTitle}
           >
             Title
@@ -52,6 +53,7 @@ const Sidebar: FC<SidebarProps> =
           <Button
             id="arrangeByAuthor"
             variant="primary"
+            name = "author"
             onClick={onSortByAuthor} 
           >
             Author
@@ -59,6 +61,7 @@ const Sidebar: FC<SidebarProps> =
           <Button
             id="arrangeByReadStatus"
             variant="primary"
+            name="readStatus"
             onClick={onSortByReadStatus}
           >
             Read Status
