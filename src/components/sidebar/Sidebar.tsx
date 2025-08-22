@@ -5,7 +5,8 @@ import './Sidebar.css'
 
 
 interface SidebarProps {
-  onAddBook: () => void;
+  //onAddBook: () => void;
+  handleOpenAddModal: () => void;
   onSortByTitle: () => void;
   onSortByAuthor: () => void;
   onSortByReadStatus: () => void;
@@ -14,7 +15,10 @@ interface SidebarProps {
 // This component creates a navigation bar that handles the AddBook
 // functionality through the onAddBook prop.
 const Sidebar: FC<SidebarProps> = 
-({onAddBook, onSortByTitle, onSortByAuthor, onSortByReadStatus}) => {
+({handleOpenAddModal, 
+  onSortByTitle, 
+  onSortByAuthor, 
+  onSortByReadStatus}) => {
   return (
     <nav className="sidebar" >
       <div id="sidebar" 
@@ -30,7 +34,8 @@ const Sidebar: FC<SidebarProps> =
           <Button 
             id="addBookButton" 
             variant="primary"
-            onClick={onAddBook}
+            onClick={handleOpenAddModal}
+          //  onClick=  {  setShowAddModal(true)}
           >
             Add Book
           </Button>

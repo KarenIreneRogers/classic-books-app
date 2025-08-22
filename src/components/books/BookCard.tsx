@@ -13,7 +13,7 @@ interface BookCardProps {
 
 const BookCard: React.FC<BookCardProps> = ({
   book: {id,title, authorFirst, authorLast, description, 
-    read, pubDate },
+    read, pubDate, category },
   onDeleteBook,
   onToggleRead,
 }) => {
@@ -36,9 +36,10 @@ const BookCard: React.FC<BookCardProps> = ({
         <h3>by {authorFirst} {authorLast}</h3>
         <h3>({pubDate})</h3>
         <p>
-          {description?.slice(0, 150)}...
+          {description?.slice(0, 80)}...
           <span className="view-more">View More</span>
         </p>
+        <p>Category: {category}</p>
       </div>
       <div className="book-footer">
         <button className="edit-btn">Edit</button>

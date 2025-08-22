@@ -4,7 +4,8 @@ import './App.css';
 import Sidebar from './components/sidebar/Sidebar';
 import BookList from "./components/books/BookList";
 import { books} from "./data/books";
-import type { Book} from "./types"
+import type { Book,NewBook, SortableBookKey} from "./types"
+import NewBookModal from './components/modals/NewBookModal';
 
 function App() {
 
@@ -14,17 +15,34 @@ function App() {
   // the ./data/books file.
   const [booksState, setBooksState] = useState(books)
   
+  // State for controlling modal visibility
+  const [showAddModal, setShowAddModal] = useState(false);
+
+
+  //Handler functions for the Add Book Modal
+  const handleOpenAddModal = () => {
+    setShowAddModal(true);
+ 
+  }
+
+  const handleCloseAddModal = () => {
+    setShowAddModal(false);
+  }
+
+
   // The addBook function is a handler function to add a new book
   // to the books state.  It will be passed down to the Sidebar
   // component where the actual adding will be called for with a button click.
-  const addBook = () => {
+  const addBook = (newBookData: NewBook) => {
     // For now, create a new book here to be added each time.
     // Eventually, a form will be used to allow the user to input
     // the data for the new book.
 
     const newBook: Book ={
       id: `${Date.now()}`, // Unique identifier for this book
-      title: "Frankenstein", // Book title
+      ...newBookData,
+     
+      /*  title: "Frankenstein", // Book title
       authorFirst: "Mary",  // Author's first name
       authorLast: "Shelley", // Author's last name
       publisher: " ",       // Space for publisher
@@ -32,24 +50,28 @@ function App() {
       pubDate: "1823 ",     // Publication date
       description: "Written when Mary Shelley was just 18 years old, but don’t let that depress you. Frankenstein is a Gothic masterpiece with entertaining set pieces aplenty. ",  // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
       category: " ",
-      read: false ,
-      createdAt: "2025-08-08T00:00:00.000Z"  ,
-      updatedAt: "2025-08-08T00:00:00.000Z"  ,
+      read: false , */
+      createdAt: new Date().toISOString() ,
+      updatedAt: new Date().toISOString() ,
       updatedOrderAt: "2025-01-01T00:00:00:000Z"
     }
     // Use setBooksState to update the books array
     setBooksState((prevBooks) => [newBook, ...prevBooks]);
+    
+    // Close the modal after adding the book
+    handleCloseAddModal();
 }
 
-// Define allowed sort keys for type safety
-type SortableBookKey = 'title' | 'authorLast' | 'read';
+
 
 // The sortBooks function sorts the array of objects called books based on the field identified by sortByCategory into alphabetical order. 
 const sortBooks = (sortByCategory: SortableBookKey) => {
   setBooksState((prevBooks) => {
     const newOrder = [...prevBooks].sort((a, b) => {
-      const aValue = a[sortByCategory];
-      const bValue = b[sortByCategory];
+      const aValue = a[sortByCategory].toString().toUpperCase();
+      const bValue = b[sortByCategory].toString().toUpperCase();
+      
+
       if (aValue < bValue) {
         return -1;
       }
@@ -113,7 +135,8 @@ return (
 <>
   <div className="d-flex flex-row vh-100 " id="app-container">
     <Sidebar 
-      onAddBook={addBook} 
+    //  onAddBook={addBook} 
+      handleOpenAddModal = {handleOpenAddModal}
       onSortByTitle={sortByTitle}
       onSortByAuthor={sortByAuthor}
       onSortByReadStatus={sortByReadStatus}
@@ -125,6 +148,11 @@ return (
         onToggleRead={toggleRead}
       />
     </div>
+    <NewBookModal
+      show = {showAddModal}
+      onHide={handleCloseAddModal}
+      onSubmit={addBook}
+    />
   </div>
 </>
   )

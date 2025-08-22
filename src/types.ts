@@ -14,4 +14,7 @@ export type Book = {
   updatedOrderAt: string;
 };
 
-export type NewBook = Omit<Book, 'id'>;
+export type NewBook = Omit<Book, 'id'| 'createdAt'| 'updatedAt'|'updatedOrderAt'>;
+
+// Define allowed sort keys for type safety
+export type SortableBookKey = 'title' | 'authorLast' | 'read';
