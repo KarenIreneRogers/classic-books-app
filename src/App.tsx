@@ -41,70 +41,45 @@ function App() {
     setBooksState((prevBooks) => [newBook, ...prevBooks]);
 }
 
-// The sort by title function sorts the array of objects called books based on the title field into alphabetical order.  The state is changed at the end of this function, but it does not re-render immediately.  Don't know why!!!
-const sortByTitle= () => {
+// Define allowed sort keys for type safety
+type SortableBookKey = 'title' | 'authorLast' | 'read';
+
+// The sortBooks function sorts the array of objects called books based on the field identified by sortByCategory into alphabetical order. 
+const sortBooks = (sortByCategory: SortableBookKey) => {
   setBooksState((prevBooks) => {
-    const newOrder= prevBooks.sort(function (a,b) {
-      if(a.title < b.title) {
-      return -1;
-      }
-      if (a.title > b.title) {
-      return 1;
-      }
-      return 0;
-    })
-    // Changing the UpdatedOrderAt field changes the state so rendering occurs.
-    const newUpdatedOrder = newOrder.map((book) =>{
-    return {
-      ...book,
-      UpdatedOrderAt: new Date().toISOString()
-    } 
-  })
-   return newUpdatedOrder
-})
-}
-// The sort by author function sorts the array of objects called books based on the authorLast field into alphabetical order.
-const sortByAuthor = () => {
-  setBooksState((prevBooks) => {
-    const newOrder = prevBooks.sort(function(a,b) {
-      if(a["authorLast"] < b["authorLast"]) {
+    const newOrder = [...prevBooks].sort((a, b) => {
+      const aValue = a[sortByCategory];
+      const bValue = b[sortByCategory];
+      if (aValue < bValue) {
         return -1;
       }
-      if (a.authorLast > b.authorLast) {
+      if (aValue > bValue) {
         return 1;
       }
       return 0;
-    })
-    const newUpdatedOrder =newOrder.map((book) => {
+    });
+    // Changing the updatedOrderAt field changes the state so rendering occurs.
+    const newUpdatedOrder = newOrder.map((book) => {
       return {
-        ...book,   // Spread all existing book properties
-        updatedOrderAt: new Date().toISOString()  // Update the date  
-      }
-    })
+        ...book,
+        updatedOrderAt: new Date().toISOString()
+      };
+    });
     return newUpdatedOrder;
   });
 };
+const sortByTitle= () => {
+  sortBooks("title");
+}
+
+const sortByAuthor = () => {
+  sortBooks("authorLast");
+}
 
 const sortByReadStatus = () => {
-  setBooksState((prevBooks) => {
-    const newOrder = prevBooks.sort(function(a,b) {
-      if(a.read < b.read) {
-        return 1;   //Use -1 here to put unread books first
-      }
-      if(a.read > b.read) {
-        return -1;    // Use 1 here to put unread books first
-      }
-      return 0;
-    }) 
-    const newUpdatedOrder =newOrder.map((book) => {
-      return {
-        ...book,   // Spread all existing book properties
-        updatedOrderAt: new Date().toISOString()  // Update the date  
-      }
-    })
-    return newUpdatedOrder;
-  });
-};
+  sortBooks("read");
+}
+
 
 // The delete book function will actually happen in the BookCard component, so define it hear and pass it down.
 const deleteBook = (bookId: string) => {
