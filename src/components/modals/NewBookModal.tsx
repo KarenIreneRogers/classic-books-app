@@ -163,6 +163,7 @@ const NewBookModal: FC<NewBookModalProps> = ({show, onHide, onSubmit}) => {
               onChange={handleInputChange}
             >
              Enter literary category
+             <option> Choose one:</option>
              <option value="Fiction">Fiction</option>
              <option value="Sci-fi">Science Fiction</option>
              <option value="Non-Fiction">Non-Fiction</option>

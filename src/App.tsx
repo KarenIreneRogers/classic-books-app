@@ -6,7 +6,8 @@ import BookList from "./components/books/BookList";
 import { books} from "./data/books";
 import type { Book,NewBook, SortableBookKey} from "./types"
 import NewBookModal from './components/modals/NewBookModal';
-
+import DeleteBookModal from './components/modals/DeleteBookModal';
+import ViewMoreModal from './components/modals/ViewMoreModal';
 function App() {
 
   // useState hook creates a state variable (booksState)
@@ -17,8 +18,10 @@ function App() {
   
   // State for controlling modal visibility
   const [showAddModal, setShowAddModal] = useState(false);
-
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [bookToDelete, setBookToDelete] = useState<Book | null>(null);
+  const [showViewMoreModal, setShowViewMoreModal] = useState(false);
+  const [bookToViewMoreOf, setBookToViewMoreOf] = useState(booksState[0]);
   //Handler functions for the Add Book Modal
   const handleOpenAddModal = () => {
     setShowAddModal(true);
@@ -27,6 +30,34 @@ function App() {
 
   const handleCloseAddModal = () => {
     setShowAddModal(false);
+  }
+
+  //Handler functions for the Delete Book Modal
+  const handleOpenDeleteModal = (bookId: string) => {
+    const book = booksState.find((b) => b.id === bookId);
+    if(book) {
+      setBookToDelete(book);
+      setShowDeleteModal(true);
+    }
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+    setBookToDelete(null);
+  };
+
+  // Handler functions for the View More Modal
+  const handleOpenViewMoreModal = (bookId: string) => {
+    const bookToView = booksState.find((b) => b.id === bookId);
+    if(bookToView) {
+      setBookToViewMoreOf(bookToView);
+      setShowViewMoreModal(true);
+    }
+  }
+
+  const handleCloseViewMoreModal = () => {
+    setShowViewMoreModal(false);
+//    setBookToViewMoreOf(null);
   }
 
 
@@ -41,16 +72,6 @@ function App() {
     const newBook: Book ={
       id: `${Date.now()}`, // Unique identifier for this book
       ...newBookData,
-     
-      /*  title: "Frankenstein", // Book title
-      authorFirst: "Mary",  // Author's first name
-      authorLast: "Shelley", // Author's last name
-      publisher: " ",       // Space for publisher
-      pubCity: " ",         // Space for publication location 
-      pubDate: "1823 ",     // Publication date
-      description: "Written when Mary Shelley was just 18 years old, but don’t let that depress you. Frankenstein is a Gothic masterpiece with entertaining set pieces aplenty. ",  // Description from this website: https://www.penguin.co.uk/discover/articles/100-must-read-classic-books
-      category: " ",
-      read: false , */
       createdAt: new Date().toISOString() ,
       updatedAt: new Date().toISOString() ,
       updatedOrderAt: "2025-01-01T00:00:00:000Z"
@@ -112,6 +133,13 @@ const deleteBook = (bookId: string) => {
     return prevBooks.filter((book) => book.id !== bookId);
   });
 };
+
+// Handler function to confirm car deletion.
+const handleConfirmDelete = () => {
+  if(bookToDelete){
+    deleteBook(bookToDelete.id);
+  }
+}
   
 // The toggleRead function updates the read part of the state
 // and changes between the open outline book and the red filled in 
@@ -133,7 +161,7 @@ const toggleRead = (bookId: string) => {
 
 return (
 <>
-  <div className="d-flex flex-row vh-100 " id="app-container">
+  <div className="d-flex flex-row" id="app-container">
     <Sidebar 
     //  onAddBook={addBook} 
       handleOpenAddModal = {handleOpenAddModal}
@@ -144,14 +172,26 @@ return (
     <div className="d-flex flex-grow-1 flex-column ">
       <BookList 
         books={booksState} 
-        onDeleteBook={deleteBook}
+        onDeleteBook={handleOpenDeleteModal}
         onToggleRead={toggleRead}
+        onViewMoreOfBook = {handleOpenViewMoreModal}
       />
     </div>
     <NewBookModal
       show = {showAddModal}
       onHide={handleCloseAddModal}
       onSubmit={addBook}
+    />
+    <DeleteBookModal
+      show = {showDeleteModal}
+      onHide={handleCloseDeleteModal}
+      onConfirm={handleConfirmDelete}
+      book={bookToDelete}
+    />
+    <ViewMoreModal
+      show = {showViewMoreModal}
+      onHide = {handleCloseViewMoreModal}
+      book={bookToViewMoreOf}
     />
   </div>
 </>

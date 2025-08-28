@@ -7,8 +7,14 @@ type BookListProps = {
   books: Book[];
   onDeleteBook: (bookId: string) => void;
   onToggleRead: (bookId: string) => void;
+  onViewMoreOfBook: (bookId: string) => void;  
 }
- const BookList: FC<BookListProps> = ({ books, onDeleteBook, onToggleRead }) => {
+ const BookList: FC<BookListProps> = ({ 
+  books, 
+  onDeleteBook, 
+  onToggleRead,
+  onViewMoreOfBook 
+  }) => {
   return (
     <div id="books" className="book-list">
       {books?.map((book) => (
@@ -17,6 +23,7 @@ type BookListProps = {
           book={book} 
           onDeleteBook={onDeleteBook} 
           onToggleRead={onToggleRead}
+          onViewMoreOfBook={onViewMoreOfBook}
           />
       ))}
 

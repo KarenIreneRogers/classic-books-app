@@ -6,9 +6,10 @@ import { IoBookOutline } from "react-icons/io5";
 
 
 interface BookCardProps {
-  book: Book;
+  book: Book
   onDeleteBook: (bookId: string) => void;
   onToggleRead: (bookId: string) => void;
+  onViewMoreOfBook: (bookId: string) => void;
 }
 
 const BookCard: React.FC<BookCardProps> = ({
@@ -16,6 +17,7 @@ const BookCard: React.FC<BookCardProps> = ({
     read, pubDate, category },
   onDeleteBook,
   onToggleRead,
+  onViewMoreOfBook,
 }) => {
 
   
@@ -37,14 +39,15 @@ const BookCard: React.FC<BookCardProps> = ({
         <h3>({pubDate})</h3>
         <p>
           {description?.slice(0, 80)}...
-          <span className="view-more">View More</span>
+          <span className="view-more" onClick={() => onViewMoreOfBook(id)}>View More</span>
         </p>
         <p>Category: {category}</p>
       </div>
       <div className="book-footer">
-        <button className="edit-btn">Edit</button>
+        {/* <button className="edit-btn">Edit</button>  */}
         <button 
           className="delete-btn"
+          style={{height: '40px', width:'100%'}}
           onClick={() => onDeleteBook(id)}
         >
           Delete
