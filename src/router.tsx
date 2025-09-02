@@ -4,10 +4,12 @@ import ReadBooks from './pages/ReadBooks'
 import FavoriteBooks from './pages/FavoriteBooks'
 import Layout from './components/Layout'
 
-export const router = createBrowserRouter([
+
+
+export const createRouter = (helpers:any) => createBrowserRouter([
     {
       path: '/',
-      element: <Layout />,
+      element: <Layout {...helpers} />,
       children: [
     
       {
@@ -15,17 +17,17 @@ export const router = createBrowserRouter([
         // This shows all books.
 
         //index: true,
-        element: <HomePage />,
+        element: <HomePage {...helpers} />,
       },
       {
         // Read books
         path: "read",
-        element: <ReadBooks/>,
+        element: <ReadBooks {...helpers}/>,
       },
       {
         // Favorite books
         path: "favorites",
-        element: <FavoriteBooks />,
+        element: <FavoriteBooks {...helpers} />,
       }
     ]}
 ])

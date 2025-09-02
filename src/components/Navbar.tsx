@@ -2,12 +2,20 @@ import { Link, useLocation } from 'react-router-dom';
 import{ Navbar as BootstrapNavbar, Button, ButtonGroup, Container, Dropdown, DropdownButton, Nav} from "react-bootstrap";
 import { FaPlus } from 'react-icons/fa';
 
+/* interface NavbarProps  {
+  setSortByString: () => void
+}
+
+ const onSortBooks (sortString: string) => {
+    setSortByString(sortString);
+  }
+function Navbar(setSortByString: NavbarProps) { */
 
 function Navbar() {
   // useLocation hook gets the current URL path which 
   // will be used to highlight the active navigation link
   const location = useLocation();
-  console.log(location);
+ 
   return (
     // Use Bootstrap Navbar for the styling and behavior
     <BootstrapNavbar bg="dark" variant="dark" expand = "lg" className="mb-3">
@@ -40,23 +48,24 @@ function Navbar() {
               
           </Nav>
           
-          <DropdownButton
+  {/*         <DropdownButton
             as={ButtonGroup}
             id="sort-key"
-            variant="secondary"
+            variant="success" 
             title="Sort By"
-            className="d-flex align-items-center"
+            onClick={onSortBooks(eventKey)}
+            className="d-flex align-items-center mb-3 gap-2"
           >
             <Dropdown.Item eventKey="title">Title</Dropdown.Item>
             <Dropdown.Item eventKey="author">Author</Dropdown.Item>
             <Dropdown.Item eventKey="read">Read Status</Dropdown.Item>
-          </DropdownButton>          
+          </DropdownButton>   */}        
 
           
-          {/* Need to add an onClick for this button witht the handleOpenAddModal function */}
+          {/* Need to add an onClick for this button with the handleOpenAddModal function */}
           <Button
             variant="success"
-            className="d-flex align-items-center gap-1"
+            className="d-flex align-items-center gap-2"
           >
             <FaPlus /> {/* Plus icon */}
             New Book
