@@ -1,12 +1,11 @@
 import { StrictMode, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
-//import './index.css'
-//import App from './App.tsx'
 import { RouterProvider } from 'react-router-dom'
 import { createRouter} from './router.tsx'
 import type { Book, NewBook, SortableBookKey } from './types.ts'
 import { books } from './data/books.ts'
+import "./App.css"
 
 function Main() {
 
@@ -15,6 +14,7 @@ function Main() {
     // The initial value of booksState will be TEST_DATA from 
     // the ./data/books file.
     const [booksState, setBooksState] = useState(books)
+    console.log(books[0]);
     
     // State for controlling modal visibility
     const [showAddModal, setShowAddModal] = useState(false);
@@ -122,7 +122,10 @@ function Main() {
   const sortByReadStatus = () => {
     sortBooks("read");
   }
-  
+
+  const sortByCategory = () => {
+    sortBooks("category");
+  }
   
   // The delete book function will actually happen in the BookCard component, so define it hear and pass it down.
   const deleteBook = (bookId: string) => {
@@ -164,6 +167,7 @@ const helpers = {
   sortByTitle,
   sortByAuthor,
   sortByReadStatus,
+  sortByCategory,
   toggleRead,
 
   bookToViewMoreOf,
@@ -192,8 +196,9 @@ return<RouterProvider router={router} /> ;
 }
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+  <div className="d-flex flex-row" id="app-container">
 
     <Main/>
-    {/* <App /> */}
+  </div>
   </StrictMode>,
 )

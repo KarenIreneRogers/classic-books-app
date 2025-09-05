@@ -1,0 +1,14 @@
+.footer {
+  /* height: 75px; */
+  width: 100%;
+  display: flex;
+  justify-content: center; 
+  /*align-items: center; */
+  /*background-color: rgba(180, 180, 180, 0.601); */
+}
+
+.read-icon-footer {
+  color: red;
+  cursor: pointer;
+  height: 25px;
+}

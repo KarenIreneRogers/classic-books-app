@@ -49,7 +49,7 @@
 .book-details span {
   font-size: 18px;
   font-weight: 700;
-  color: blue;
+  color: rgb(100, 100, 229);
 }
 
 .book-details span:hover {
@@ -68,8 +68,8 @@
 }
 
 .book-details p {
-  font-size: 0.9rem;
-  color: #555;
+  font-size: 1.0rem;
+  color: #444;
   line-height: 1.4;
 }
 
@@ -98,13 +98,6 @@ button:hover {
   cursor: pointer;
 }
 
-.edit-btn {
-  border: 1px solid #3498db;
-}
-
-.edit-btn:hover {
-  background: #3498db;
-}
 
 .delete-btn {
   border: 1px solid red;
@@ -114,20 +107,18 @@ button:hover {
   background-color: red;
 }
 
-/* Three cards per row on medium screens */
+ /* Three cards per row on medium screens */
 @media (min-width: 768px) {
   .book-card {
     flex: 1 1 calc(33.3% - 20px);
     max-width: calc(33.3% - 20px);
-    max-height: 350px;
   }
-}
+} 
 
 /* Five cards per row on large screens */
-@media (min-width: 1400px) {
+ @media (min-width: 1400px) {
   .book-card {
     flex: 1 1 calc(20% - 20px);
     max-width: calc(20% - 20px);
-    max-height: 350px;
   }
-}
+}  

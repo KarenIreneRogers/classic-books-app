@@ -8,5 +8,5 @@ font-size: large;
   flex-direction: column ; 
   /*justify-content: center;
    /*align-items: center;   This centers vertically*/
-  background: linear-gradient(135deg, rgb(200, 200, 200),rgb(140, 140, 140), rgb(80, 80, 80))
+ /* background: linear-gradient(135deg, rgb(200, 200, 200),rgb(140, 140, 140), rgb(80, 80, 80)) */
 }

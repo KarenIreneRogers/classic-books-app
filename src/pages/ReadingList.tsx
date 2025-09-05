@@ -1,20 +1,19 @@
-import React from 'react'
 import BookList from '../components/books/BookList'
 import NewBookModal from '../components/modals/NewBookModal'
 import DeleteBookModal from '../components/modals/DeleteBookModal'
 import ViewMoreModal from '../components/modals/ViewMoreModal'
 import type { Book } from '../types'
 
-function ReadBooks(helpers: any) {
-  console.log("Made it to the Read Books page.")
-  console.log(helpers.booksState[2])
+function ReadingList(helpers: any) {
+  console.log("Made it to the Reading List page.")
+  console.log(helpers.booksState[5])
 
-  const readBooks = helpers.booksState.filter((book:Book) => book.read);
+  const readBooks = helpers.booksState.filter((book:Book) => (! book.read));
 
 
   return (
     <div>
-      <h1>Read Books</h1>
+      <h1>Reading List</h1>
       <div className="d-flex flex-grow-1 flex-column ">
         <BookList 
           books={ readBooks } 
@@ -44,4 +43,4 @@ function ReadBooks(helpers: any) {
   )
 }
 
-export default ReadBooks
+export default ReadingList
