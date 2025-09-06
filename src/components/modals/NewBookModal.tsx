@@ -177,7 +177,7 @@ const NewBookModal: FC<NewBookModalProps> =
             <Form.Check
               type = "checkbox"
               name = "read"
-             // value={formData.read}
+              checked={formData.read}
               onChange={handleInputChange}
               placeholder="Check if you have read the book"
               //required

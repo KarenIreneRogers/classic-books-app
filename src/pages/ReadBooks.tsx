@@ -5,8 +5,7 @@ import ViewMoreModal from '../components/modals/ViewMoreModal'
 import type { Book } from '../types'
 
 function ReadBooks(helpers: any) {
-  console.log("Made it to the Read Books page.")
-  console.log(helpers.booksState[2])
+
 
   const readBooks = helpers.booksState.filter((book:Book) => book.read);
 

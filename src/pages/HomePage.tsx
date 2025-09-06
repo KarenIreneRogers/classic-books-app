@@ -2,9 +2,11 @@ import BookList from '../components/books/BookList'
 import NewBookModal from '../components/modals/NewBookModal'
 import DeleteBookModal from '../components/modals/DeleteBookModal'
 import ViewMoreModal from '../components/modals/ViewMoreModal'
-import type { Book, NewBook } from '../types'
 
-type helperProps = {
+
+//import type { Book, NewBook } from '../types'
+
+/* type helperProps = {
   books: Book[];
   setBooksState: () => void;
   sortByTitle: () => void;
@@ -29,7 +31,7 @@ type helperProps = {
   handleOpenDeleteModal: (bookId: string) => void;
   handleCloseDeleteModal: () => void;
   handleConfirmDelete: () => void;
-}
+} */
 function HomePage(helpers: any) {
 
   return (

@@ -25,7 +25,8 @@ function Main() {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
-    const API_URL = "http://localhost:3000/books";
+    //const API_URL = "http://localhost:3000/books";
+    const API_URL = "https://68bc34590f2491613ede578c.mockapi.io/books/books"
 
     // useEffect hook runs when the component first loads (mounts)
     // Use this to fill the booksState with the data from the database.
@@ -49,7 +50,6 @@ function Main() {
       };
       //Call the function to fetch the books
       fetchBooks();
-      console.log(booksState[0]);
     }, []);  // Empty dependency array on the useEffect runs only once.
 
   
@@ -85,8 +85,6 @@ function Main() {
         setBookToViewMoreOf(bookToView);
         setShowViewMoreModal(true);
 
-        console.log("Book to view is:");
-        console.log(bookToView);
       }
     }
   
@@ -115,6 +113,7 @@ function Main() {
             },
             body: JSON.stringify({
               ...newBookData,
+              id: `${Date.now()}`, // Unique identifier for this book
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
               updatedOrderAt: ""
