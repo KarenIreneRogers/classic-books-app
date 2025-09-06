@@ -6,7 +6,7 @@ import BookCard from "./BookCard"
 type BookListProps = {
   books: Book[];
   onDeleteBook: (bookId: string) => void;
-  onToggleRead: (bookId: string) => void;
+  onToggleRead: (bookId: string, isRead: boolean) => void;
   onViewMoreOfBook: (bookId: string) => void;  
 }
  const BookList: FC<BookListProps> = ({ 

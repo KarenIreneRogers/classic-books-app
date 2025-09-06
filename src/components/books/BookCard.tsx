@@ -8,7 +8,7 @@ import { IoBookOutline } from "react-icons/io5";
 interface BookCardProps {
   book: Book
   onDeleteBook: (bookId: string) => void;
-  onToggleRead: (bookId: string) => void;
+  onToggleRead: (bookId: string, isReadNot: boolean) => void;
   onViewMoreOfBook: (bookId: string) => void;
 }
 
@@ -25,9 +25,9 @@ const BookCard: React.FC<BookCardProps> = ({
     <div className = "book-card">
       <div className = "read-icon">
         {read ? ( 
-          <IoBook onClick={() => onToggleRead(id)}/> 
+          <IoBook onClick={() => onToggleRead(id, false)}/> 
         ): (
-          <IoBookOutline onClick={() => onToggleRead(id)} />
+          <IoBookOutline onClick={() => onToggleRead(id, true)} />
         )}
       </div>
       <br></br>

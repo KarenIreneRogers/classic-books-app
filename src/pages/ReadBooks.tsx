@@ -1,4 +1,3 @@
-import React from 'react'
 import BookList from '../components/books/BookList'
 import NewBookModal from '../components/modals/NewBookModal'
 import DeleteBookModal from '../components/modals/DeleteBookModal'
@@ -38,6 +37,7 @@ function ReadBooks(helpers: any) {
         show = {helpers.showViewMoreModal}
         onHide = {helpers.handleCloseViewMoreModal}
         book={helpers.bookToViewMoreOf}
+        onToggleRead={helpers.toggleRead}
       />
     </div>
   

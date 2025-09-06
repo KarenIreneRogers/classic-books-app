@@ -7,7 +7,8 @@ interface NewBookModalProps {
   onHide: () => void;
   onSubmit: (bookData: NewBook) => void;
 }
-const NewBookModal: FC<NewBookModalProps> = ({show, onHide, onSubmit}) => {
+const NewBookModal: FC<NewBookModalProps> = 
+  ({show, onHide, onSubmit}) => {
 
   // State for form data
   const[formData, setFormData] = useState<NewBook>({

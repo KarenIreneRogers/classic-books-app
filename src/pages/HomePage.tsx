@@ -58,7 +58,8 @@ function HomePage(helpers: any) {
       show = {helpers.showViewMoreModal}
       onHide = {helpers.handleCloseViewMoreModal}
       book={helpers.bookToViewMoreOf}
-    />
+      onToggleRead = {helpers.toggleRead}
+    /> 
   </div>
   
   )

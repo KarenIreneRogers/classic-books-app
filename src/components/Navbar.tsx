@@ -64,14 +64,7 @@ function Navbar(helpers:any) {
           >
             Author
           </Button>
-{/*           <Button
-            id="arrangeByReadStatus"
-            variant="secondary"
-            name="readStatus"
-            onClick={helpers.sortByReadStatus}
-          >
-            Read Status
-          </Button> */}
+
           <Button
             id="arrangeByCategory"
             variant="secondary"

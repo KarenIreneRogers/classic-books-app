@@ -1,4 +1,4 @@
-import { StrictMode, useState } from 'react'
+import { StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import { RouterProvider } from 'react-router-dom'
@@ -11,17 +11,49 @@ function Main() {
 
     // useState hook creates a state variable (booksState)
     // and a function (setBooksState) to update the books state.
-    // The initial value of booksState will be TEST_DATA from 
-    // the ./data/books file.
-    const [booksState, setBooksState] = useState(books)
-    console.log(books[0]);
+    // The initial value of booksState is empty, and will be filled
+    // by the useEffect function which will fetch the data from 
+    // the database.
+    const [booksState, setBooksState] = useState<Book[]>([]);
     
     // State for controlling modal visibility
     const [showAddModal, setShowAddModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [bookToDelete, setBookToDelete] = useState<Book | null>(null);
     const [showViewMoreModal, setShowViewMoreModal] = useState(false);
-    const [bookToViewMoreOf, setBookToViewMoreOf] = useState(booksState[0]);
+    const [bookToViewMoreOf, setBookToViewMoreOf] = useState<Book|null>(null);
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
+
+    const API_URL = "http://localhost:3000/books";
+
+    // useEffect hook runs when the component first loads (mounts)
+    // Use this to fill the booksState with the data from the database.
+    useEffect(() => {
+      const fetchBooks = async() => {
+        try{
+          const response = await fetch(API_URL);
+
+          if(!response.ok) {
+            throw new Error("Failed to fetch books");
+          }
+
+          const bookData = await response.json();
+          setBooksState(bookData);
+        } catch(err) {
+          setError("Failed to load books");
+          console.error("Error fetching books:",err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      //Call the function to fetch the books
+      fetchBooks();
+      console.log(booksState[0]);
+    }, []);  // Empty dependency array on the useEffect runs only once.
+
+  
+
     //Handler functions for the Add Book Modal
     const handleOpenAddModal = () => {
       setShowAddModal(true);
@@ -52,6 +84,9 @@ function Main() {
       if(bookToView) {
         setBookToViewMoreOf(bookToView);
         setShowViewMoreModal(true);
+
+        console.log("Book to view is:");
+        console.log(bookToView);
       }
     }
   
@@ -62,26 +97,47 @@ function Main() {
   
   
     // The addBook function is a handler function to add a new book
-    // to the books state.  It will be passed down to the Sidebar
-    // component where the actual adding will be called for with a button click.
-    const addBook = (newBookData: NewBook) => {
-      // For now, create a new book here to be added each time.
-      // Eventually, a form will be used to allow the user to input
-      // the data for the new book.
-  
-      const newBook: Book ={
-        id: `${Date.now()}`, // Unique identifier for this book
-        ...newBookData,
-        createdAt: new Date().toISOString() ,
-        updatedAt: new Date().toISOString() ,
-        updatedOrderAt: "2025-01-01T00:00:00:000Z"
+    // to the books state and the API.  This function is active when
+    // the Submit button on the NewBookModal is clicked. (Referred to
+    // as onSubmit in the modal.)
+    const addBook = async (newBookData: NewBook) => {
+ 
+      setError("");
+      setIsLoading(true);
+
+      try{
+        const response = await fetch (
+          `${API_URL}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...newBookData,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+              updatedOrderAt: ""
+            })
+          }
+        );
+        
+        if(!response.ok) {
+          throw new Error("Failed to create new book");
+        }
+        // Close the modal after adding the book
+        handleCloseAddModal();
+
+        // Refresh the page to show the new book
+        window.location.reload();
+      } catch (err) {
+        setError("Failed to create book.  Please try again.");
+      } finally {
+        setIsLoading(false);
       }
-      // Use setBooksState to update the books array
-      setBooksState((prevBooks) => [newBook, ...prevBooks]);
-      
-      // Close the modal after adding the book
-      handleCloseAddModal();
-  }
+
+    }
+  
   
   
   
@@ -102,6 +158,7 @@ function Main() {
         return 0;
       });
       // Changing the updatedOrderAt field changes the state so rendering occurs.
+      // Don't need to update Backend (??)
       const newUpdatedOrder = newOrder.map((book) => {
         return {
           ...book,
@@ -127,17 +184,34 @@ function Main() {
     sortBooks("category");
   }
   
-  // The delete book function will actually happen in the BookCard component, so define it hear and pass it down.
-  const deleteBook = (bookId: string) => {
-    // Use the setBooksState function to update the books array
-    setBooksState((prevBooks) => {
+  // The delete book function will be called from the BookCard component, so define it hear and pass it down.
+  const deleteBook = async (bookId: string) => {
+    // Delete from backend:
+    
+    try{
+      const response = await fetch(`${API_URL}/${bookId}`, {
+        method: "DELETE",
+      }
+    );
+    if(!response.ok) {
+      throw new Error("Failed to delete book");
+    }
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    } finally {
+      setShowDeleteModal(false);
+      // Delete from frontend:
+      // Use the setBooksState function to update the books array
+      setBooksState((prevBooks) => {
       // filter out the book which matches the id.  
       // This makes a new array with all of the books except the one to be deleted.
-      return prevBooks.filter((book) => book.id !== bookId);
-    });
+        return prevBooks.filter((book) => book.id !== bookId);
+      });
+    };
   };
+
   
-  // Handler function to confirm car deletion.
+  // Handler function to confirm book deletion.
   const handleConfirmDelete = () => {
     if(bookToDelete){
       deleteBook(bookToDelete.id);
@@ -146,20 +220,52 @@ function Main() {
 // The toggleRead function updates the read part of the state
 // and changes between the open outline book and the red filled in 
 // book icons.  Access it by clicking on the icons.
-const toggleRead = (bookId: string) => {
-  setBooksState((prevBooks) => {
-    return prevBooks.map((book) => {
-      if(book.id === bookId) {
-        return {
-          ...book,   // Spread all existing book properties
-          read: !book.read,  // toggle the read property
-          updatedAt: new Date().toISOString(),  // Update the date
-        }
+const toggleRead = async (bookId: string, nextReadState: boolean) => {
+  
+  try{
+    const response = await fetch(
+      `${API_URL}/${bookId}`,
+   
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...books.find((b) => b.id === bookId),
+          read: nextReadState,
+          updatedAt: new Date().toISOString()
+        }),
       }
-      return book;
-    });
-  });
-};
+    );
+
+    if(!response.ok) {
+      throw new Error("Failed to update read status");
+    }
+    setBooksState((prevBooks) => 
+   
+      prevBooks.map((book) => 
+        book.id === bookId ?
+          { ...book,   // Spread all existing book properties
+            read: nextReadState,  // toggle the read property
+            updatedAt: new Date().toISOString(),  // Update the date
+          }  : book )    
+    );
+    if(showViewMoreModal) { // Update the state for the book shown in the 
+      // ViewMoreModal.  Otherwise, it takes two clicks on the read icon 
+      // to change the state in the bookCard and then the ViewMoreModal.
+      
+      const bookToView = booksState.find((b: Book) => b.id === bookId);
+      if(bookToView) {
+        bookToView.read = nextReadState;
+        setBookToViewMoreOf(bookToView);
+      } 
+    }
+  } catch (err) {
+    console.error("Error updating read status",err);
+  }  
+
+} 
 
 const helpers = {
   booksState,
